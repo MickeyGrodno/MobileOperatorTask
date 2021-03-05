@@ -1,6 +1,8 @@
+package com.epam.mobileOperator;
+
 public class Tariff {
     private String TariffName;
-    private double subscriptionFee;
+    private Double subscriptionFee;
     private int freeMinute;
     private int freeMinuteToOtherNetwork;
     private int freeTraffic;
@@ -20,11 +22,11 @@ public class Tariff {
         this.TariffName = RateName;
     }
 
-    public double getSubscriptionFee() {
+    public Double getSubscriptionFee() {
         return subscriptionFee;
     }
 
-    public void setSubscriptionFee(double subscriptionFee) {
+    public void setSubscriptionFee(Double subscriptionFee) {
         this.subscriptionFee = subscriptionFee;
     }
 
