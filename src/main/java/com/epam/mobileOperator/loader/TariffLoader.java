@@ -1,4 +1,6 @@
-package com.epam.mobileOperator;
+package com.epam.mobileOperator.loader;
+
+import com.epam.mobileOperator.Tariff;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -38,7 +40,7 @@ public class TariffLoader {
         return tariff;
     }
 
-    private List<Tariff> loadAllTariffFromCsv() throws IOException {
+    public List<Tariff> getAllTariffFromCsv() throws IOException {
         allTariff = new ArrayList<>();
         reader = new BufferedReader(new FileReader(RATE_BASE));
 
@@ -58,10 +60,6 @@ public class TariffLoader {
     }
 
     public Map<String, List<Tariff>> getSortTariffsByTariffLine() throws IOException {
-        return sortTariffsByTariffLine(loadAllTariffFromCsv());
-    }
-
-    public List<Tariff> getAllTariff() throws IOException {
-        return loadAllTariffFromCsv();
+        return sortTariffsByTariffLine(getAllTariffFromCsv());
     }
 }
