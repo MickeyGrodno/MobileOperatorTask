@@ -1,4 +1,4 @@
-package com.epam.mobileOperator;
+package com.epam.mobileOperator.filter;
 
 public class FilterSettings {
     private double[] subscriptionFee;

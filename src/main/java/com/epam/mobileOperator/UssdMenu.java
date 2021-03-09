@@ -1,5 +1,7 @@
 package com.epam.mobileOperator;
 
+import com.epam.mobileOperator.filter.Filter;
+import com.epam.mobileOperator.loader.TariffLoader;
 import com.epam.mobileOperator.printer.NumberOfSubscribersPrinter;
 import com.epam.mobileOperator.printer.TariffPrinter;
 
@@ -7,11 +9,12 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class UssdMenu {
+    TariffLoader loader = new TariffLoader();
     TariffPrinter tariffPrinter = new TariffPrinter();
+    Filter filter = new Filter();
     private Scanner sc;
     private int userInput;
     NumberOfSubscribersPrinter numberOfSubscribersPrinter;
-    Finder finder;
     void startMenu() throws IOException {
         sc = new Scanner(System.in);
         numberOfSubscribersPrinter = new NumberOfSubscribersPrinter();
@@ -32,26 +35,20 @@ public class UssdMenu {
         if (userInput == 3) {
             showAllTariffInfoSortedBySubscriptionFee();
         }
-
-        if (userInput == 3) {
-
+        if (userInput == 4) {
+            showAllTariffByUserFilter();
         }
-
     }
-
     void showAllTariffByLine() throws IOException {
-        tariffPrinter.printGroupTariffByLine();
+        tariffPrinter.printGroupTariffByTariffLine(loader.getSortTariffsByTariffLine());
     }
-
     void showAllTariffInfo() throws IOException {
-        tariffPrinter.printAllTariffInfo();
+        tariffPrinter.printAllTariffInfo(loader.getAllTariffFromCsv());
     }
-
     void showAllTariffInfoSortedBySubscriptionFee() throws IOException {
-        tariffPrinter.printAllTariffSortedBySubscriptionFee();
+        tariffPrinter.printAllTariffSortedBySubscriptionFee(loader.getAllTariffFromCsv());
     }
-
     void showAllTariffByUserFilter() throws IOException {
-        tariffPrinter.printAllTariffInfo(finder.getAllTariffByUserFilter());
+        tariffPrinter.printAllTariffInfo(filter.getAllTariffByUserFilter());
     }
 }

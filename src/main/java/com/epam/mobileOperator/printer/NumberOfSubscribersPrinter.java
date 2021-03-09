@@ -9,7 +9,7 @@ public class NumberOfSubscribersPrinter {
 
     public void printNumberOfSubscribers() throws IOException {
         numberOfSubscribersLoader = new NumberOfSubscribersLoader();
-        Integer numberOfSubscribers = numberOfSubscribersLoader.getNumberOfSubscribers();
+        int numberOfSubscribers = numberOfSubscribersLoader.getNumberOfSubscribers();
         System.out.println("Зарегистрировано абонентов: "+numberOfSubscribers);
     }
 }

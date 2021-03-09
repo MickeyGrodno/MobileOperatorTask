@@ -14,6 +14,8 @@ public class Tariff {
     private double priceSms;
     private double priceMinuteRoaming;
 
+
+
     public String getTariffName() {
         return TariffName;
     }

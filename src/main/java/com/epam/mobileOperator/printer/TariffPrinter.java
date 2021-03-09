@@ -2,23 +2,11 @@ package com.epam.mobileOperator.printer;
 
 import com.epam.mobileOperator.Tariff;
 import com.epam.mobileOperator.loader.TariffLoader;
-
-import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
 public class TariffPrinter {
-    TariffLoader loader;
-
-    private void printGroupTariffByLine(Map<String, List<Tariff>> map) {
-        for (Map.Entry<String, List<Tariff>> current : map.entrySet()) {
-            System.out.println("Тарифы линейки " + current.getKey());
-            System.out.println("------------------------------------");
-            current.getValue().forEach(a -> System.out.println(a.getTariffName()));
-            System.out.println();
-        }
-    }
 
     private String unlimFromTariffCheck(Integer lineValue) {
         if (!lineValue.equals(Integer.MAX_VALUE)) {
@@ -26,7 +14,22 @@ public class TariffPrinter {
         }
         else return "unlim";
     }
-
+    private void tariffInfoPrinter(Tariff tariff) {
+        System.out.println(String.format("|   %s    |    %s    |    %s    |    %s    |    %s    |    %s    | " +
+                        "   %s    |    %s    |    %s    |    %s    |     %s    |    %s    |", tariff.getTariffName(),
+                tariff.getSubscriptionFee(), unlimFromTariffCheck(tariff.getFreeMinute()),
+                unlimFromTariffCheck(tariff.getFreeMinuteToOtherNetwork()), unlimFromTariffCheck(tariff.getFreeTraffic()),
+                unlimFromTariffCheck(tariff.getFreeSms()), unlimFromTariffCheck(tariff.getFreeMinuteRoaming()), tariff.getPriceMinute(), tariff.getPriceMinuteToOtherNetwork(),
+                tariff.getPriceTraffic(), tariff.getPriceSms(), tariff.getPriceMinuteRoaming()));
+    }
+    public void printGroupTariffByTariffLine(Map<String, List<Tariff>> map) {
+        for (Map.Entry<String, List<Tariff>> current : map.entrySet()) {
+            System.out.println("Тарифы линейки " + current.getKey());
+            System.out.println("------------------------------------");
+            current.getValue().forEach(a -> System.out.println(a.getTariffName()));
+            System.out.println();
+        }
+    }
     public void printSortedTariffBySubscriptionFee(List<Tariff> tariffList) {
         System.out.println("Название тарифа | Абон. плата | Мин. внутри сети | Мин. в др. сети | Беспл. МБ | Беспл. СМС | " +
                 "Мин. роум. | Цена 1 мин. | Цена 1 мин др. сети | Цена 1 Мб | Цена 1 СМС | Цена 1 мин роум. |");
@@ -37,40 +40,12 @@ public class TariffPrinter {
 //                System.out.println(currentTariff.getTariffName());
 //            }
     }
-
-    private void tariffInfoPrinter(Tariff tariff) {
-        System.out.println(String.format("|   %s    |    %s    |    %s    |    %s    |    %s    |    %s    | " +
-                        "   %s    |    %s    |    %s    |    %s    |     %s    |    %s    |", tariff.getTariffName(),
-                tariff.getSubscriptionFee(), unlimFromTariffCheck(tariff.getFreeMinute()),
-                unlimFromTariffCheck(tariff.getFreeMinuteToOtherNetwork()), unlimFromTariffCheck(tariff.getFreeTraffic()),
-                unlimFromTariffCheck(tariff.getFreeSms()), unlimFromTariffCheck(tariff.getFreeMinuteRoaming()), tariff.getPriceMinute(), tariff.getPriceMinuteToOtherNetwork(),
-                tariff.getPriceTraffic(), tariff.getPriceSms(), tariff.getPriceMinuteRoaming()));
-    }
-
-    public void printAllTariff(List<Tariff> tariffList) {
+    public void printAllTariffInfo(List<Tariff> tariffList) {
         tariffList.stream().forEach(a -> tariffInfoPrinter(a));
 //        printSortedTariffBySubscriptionFee(tariffList);
 //        printGroupTariffByLine(sortTariffsByLine(loadAllTariffFromCsv()));
     }
-
-    private void printAllTariffSortedBySubscriptionFee(List<Tariff> tariffList) {
+    public void printAllTariffSortedBySubscriptionFee(List<Tariff> tariffList) {
         printSortedTariffBySubscriptionFee(tariffList);
-    }
-
-
-
-    public void printGroupTariffByLine() throws IOException {
-        loader = new TariffLoader();
-        printGroupTariffByLine(loader.getSortTariffsByTariffLine());
-    }
-
-    public void printAllTariffInfo() throws IOException {
-        loader = new TariffLoader();
-        loader.getAllTariffFromCsv();
-    }
-
-    public void printAllTariffSortedBySubscriptionFee() throws IOException {
-        loader = new TariffLoader();
-        printAllTariffSortedBySubscriptionFee(loader.getAllTariffFromCsv());
     }
 }
