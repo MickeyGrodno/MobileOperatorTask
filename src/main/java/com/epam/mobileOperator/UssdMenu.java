@@ -18,25 +18,27 @@ public class UssdMenu {
     void startMenu() throws IOException {
         sc = new Scanner(System.in);
         numberOfSubscribersPrinter = new NumberOfSubscribersPrinter();
-        numberOfSubscribersPrinter.printNumberOfSubscribers();
-        System.out.println("1 - для получения списка тарифов компании");
-        System.out.println("2 - для получения информации о всех тарифах компании");
-        System.out.println("3 - для получения списка тарифов компании (Абон. плата min->max)");
-        System.out.println("4 - подобрать тариф, соответствующий заданным параметрам");
+        while (true) {
+            numberOfSubscribersPrinter.printNumberOfSubscribers();
+            System.out.println("1 - для получения списка тарифов компании");
+            System.out.println("2 - для получения информации о всех тарифах компании");
+            System.out.println("3 - для получения списка тарифов компании (Абон. плата min->max)");
+            System.out.println("4 - подобрать тариф, соответствующий заданным параметрам");
 
-        userInput = sc.nextInt();
+            userInput = sc.nextInt();
 
-        if (userInput == 1) {
-            showAllTariffByLine();
-        }
-        if (userInput == 2) {
-            showAllTariffInfo();
-        }
-        if (userInput == 3) {
-            showAllTariffInfoSortedBySubscriptionFee();
-        }
-        if (userInput == 4) {
-            showAllTariffByUserFilter();
+            if (userInput == 1) {
+                showAllTariffByLine();
+            }
+            if (userInput == 2) {
+                showAllTariffInfo();
+            }
+            if (userInput == 3) {
+                showAllTariffInfoSortedBySubscriptionFee();
+            }
+            if (userInput == 4) {
+                showAllTariffByUserFilter();
+            }
         }
     }
     void showAllTariffByLine() throws IOException {

@@ -14,6 +14,10 @@ public class TariffPrinter {
         }
         else return "unlim";
     }
+    private void headLinePrinter() {
+        System.out.println("Название тарифа | Абон. плата | Мин. внутри сети | Мин. в др. сети | Беспл. МБ | Беспл. СМС | " +
+                "Мин. роум. | Цена 1 мин. | Цена 1 мин др. сети | Цена 1 Мб | Цена 1 СМС | Цена 1 мин роум. |");
+    }
     private void tariffInfoPrinter(Tariff tariff) {
         System.out.println(String.format("|   %s    |    %s    |    %s    |    %s    |    %s    |    %s    | " +
                         "   %s    |    %s    |    %s    |    %s    |     %s    |    %s    |", tariff.getTariffName(),
@@ -30,9 +34,8 @@ public class TariffPrinter {
             System.out.println();
         }
     }
-    public void printSortedTariffBySubscriptionFee(List<Tariff> tariffList) {
-        System.out.println("Название тарифа | Абон. плата | Мин. внутри сети | Мин. в др. сети | Беспл. МБ | Беспл. СМС | " +
-                "Мин. роум. | Цена 1 мин. | Цена 1 мин др. сети | Цена 1 Мб | Цена 1 СМС | Цена 1 мин роум. |");
+    public void printAllTariffSortedBySubscriptionFee(List<Tariff> tariffList) {
+        headLinePrinter();
         tariffList.stream().sorted(Comparator.comparing(Tariff::getSubscriptionFee)).forEach(a -> tariffInfoPrinter(a));
 //            current.getValue().forEach(a ->  System.out.println(a.getTariffName()));
 
@@ -41,11 +44,9 @@ public class TariffPrinter {
 //            }
     }
     public void printAllTariffInfo(List<Tariff> tariffList) {
+        headLinePrinter();
         tariffList.stream().forEach(a -> tariffInfoPrinter(a));
 //        printSortedTariffBySubscriptionFee(tariffList);
 //        printGroupTariffByLine(sortTariffsByLine(loadAllTariffFromCsv()));
-    }
-    public void printAllTariffSortedBySubscriptionFee(List<Tariff> tariffList) {
-        printSortedTariffBySubscriptionFee(tariffList);
     }
 }
