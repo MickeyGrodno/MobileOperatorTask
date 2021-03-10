@@ -14,7 +14,7 @@ public class Filter {
     Scanner scanner;
 
     private List<Tariff> findTariffByFilter (List<Tariff> tariffList, FilterSettings filterSettings) {
-        List<Tariff> filteredTariff = new ArrayList<>();
+        List<Tariff> filteredTariffList = new ArrayList<>();
         for(Tariff tariff : tariffList) {
             if(tariff.getSubscriptionFee()>=filterSettings.getSubscriptionFee()[0]
                     && tariff.getSubscriptionFee()<=filterSettings.getSubscriptionFee()[1]) {
@@ -28,7 +28,7 @@ public class Filter {
                                     && tariff.getFreeSms()<=filterSettings.getFreeSms()[1]) {
                                 if(tariff.getFreeMinuteRoaming()>=filterSettings.getFreeMinuteRoaming()[0]
                                         && tariff.getFreeMinuteRoaming()<=filterSettings.getFreeMinuteRoaming()[1]) {
-                                    filteredTariff.add(tariff);
+                                    filteredTariffList.add(tariff);
                                 }
                             }
                         }
@@ -36,7 +36,7 @@ public class Filter {
                 }
             }
         }
-        return filteredTariff;
+        return filteredTariffList;
     }
 
     private FilterSettings setFilterSettings() {
