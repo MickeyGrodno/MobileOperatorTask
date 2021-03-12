@@ -1,23 +1,29 @@
 package com.epam.mobileOperator;
 
-import com.epam.mobileOperator.filter.Filter;
-import com.epam.mobileOperator.loader.TariffLoader;
-import com.epam.mobileOperator.printer.NumberOfSubscribersPrinter;
-import com.epam.mobileOperator.printer.TariffPrinter;
+import com.epam.mobileOperator.filter.FilterImpl;
+import com.epam.mobileOperator.filter.FilterSettings;
+import com.epam.mobileOperator.interfaces.Filter;
+import com.epam.mobileOperator.interfaces.NumberOfSubscribersPrinter;
+import com.epam.mobileOperator.interfaces.TariffLoader;
+import com.epam.mobileOperator.interfaces.TariffPrinter;
+import com.epam.mobileOperator.loader.TariffLoaderImpl;
+import com.epam.mobileOperator.printer.NumberOfSubscribersPrinterImpl;
+import com.epam.mobileOperator.printer.TariffPrinterImpl;
 
 import java.io.IOException;
 import java.util.Scanner;
 
 public class UssdMenu {
-    TariffLoader loader = new TariffLoader();
-    TariffPrinter tariffPrinter = new TariffPrinter();
-    Filter filter = new Filter();
-    private Scanner sc;
-    private int userInput;
+    TariffLoader loader = new TariffLoaderImpl();
+    TariffPrinter tariffPrinter = new TariffPrinterImpl();
+    Filter filter = new FilterImpl();
+    FilterSettings filterSettings;
     NumberOfSubscribersPrinter numberOfSubscribersPrinter;
+
+
     void startMenu() throws IOException {
-        sc = new Scanner(System.in);
-        numberOfSubscribersPrinter = new NumberOfSubscribersPrinter();
+        Scanner sc = new Scanner(System.in);
+        numberOfSubscribersPrinter = new NumberOfSubscribersPrinterImpl();
         while (true) {
             numberOfSubscribersPrinter.printNumberOfSubscribers();
             System.out.println("1 - для получения списка тарифов компании");
@@ -25,7 +31,7 @@ public class UssdMenu {
             System.out.println("3 - для получения списка тарифов компании (Абон. плата min->max)");
             System.out.println("4 - подобрать тариф, соответствующий заданным параметрам");
 
-            userInput = sc.nextInt();
+            int userInput = sc.nextInt();
 
             if (userInput == 1) {
                 showAllTariffByLine();
@@ -39,10 +45,13 @@ public class UssdMenu {
             if (userInput == 4) {
                 showAllTariffByUserFilter();
             }
+            if (userInput == 0) {
+                break;
+            }
         }
     }
     void showAllTariffByLine() throws IOException {
-        tariffPrinter.printGroupTariffByTariffLine(loader.getSortTariffsByTariffLine());
+        tariffPrinter.printGroupTariffByTariffLine(loader.sortTariffsByTariffLine());
     }
     void showAllTariffInfo() throws IOException {
         tariffPrinter.printAllTariffInfo(loader.getAllTariffFromCsv());
@@ -51,6 +60,8 @@ public class UssdMenu {
         tariffPrinter.printAllTariffSortedBySubscriptionFee(loader.getAllTariffFromCsv());
     }
     void showAllTariffByUserFilter() throws IOException {
-        tariffPrinter.printAllTariffInfo(filter.getAllTariffByUserFilter());
+        filterSettings = new FilterSettings();
+        filterSettings.setFilterParametersViaUserInterface();
+        tariffPrinter.printAllTariffInfo(filter.findTariffByFilterSettings(loader.getAllTariffFromCsv(), filterSettings));
     }
 }

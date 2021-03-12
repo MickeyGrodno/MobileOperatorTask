@@ -1,5 +1,8 @@
 package com.epam.mobileOperator.filter;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class FilterSettings {
     private double[] subscriptionFee;
     private int[] freeMinute;
@@ -7,6 +10,22 @@ public class FilterSettings {
     private int[] freeTraffic;
     private int[] freeSms;
     private int[] freeMinuteRoaming;
+
+    public void setFilterParametersViaUserInterface() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Введите диапазон абон платы ");
+        setSubscriptionFee(Arrays.stream(scanner.nextLine().split("-")).mapToDouble(Double::parseDouble).toArray());
+        System.out.print("Введите диапазон беспл мин ");
+        setFreeMinute(Arrays.stream(scanner.nextLine().split("-")).mapToInt(Integer::parseInt).toArray());
+        System.out.print("Введите диапазон беспл мин др сети ");
+        setFreeMinuteToOtherNetwork(Arrays.stream(scanner.nextLine().split("-")).mapToInt(Integer::parseInt).toArray());
+        System.out.print("Введите диапазон Трафик ");
+        setFreeTraffic(Arrays.stream(scanner.nextLine().split("-")).mapToInt(Integer::parseInt).toArray());
+        System.out.print("Введите диапазон СМС ");
+        setFreeSms(Arrays.stream(scanner.nextLine().split("-")).mapToInt(Integer::parseInt).toArray());
+        System.out.print("Введите диапазон мин роум ");
+        setFreeMinuteRoaming(Arrays.stream(scanner.nextLine().split("-")).mapToInt(Integer::parseInt).toArray());
+    }
 
     public double[] getSubscriptionFee() {
         return subscriptionFee;
