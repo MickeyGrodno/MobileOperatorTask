@@ -34,13 +34,6 @@ public class TariffLoaderImpl implements TariffLoader {
         return tariff;
     }
 
-    public Map<String, List<Tariff>> sortTariffsByTariffLine() throws IOException {
-
-        List<Tariff> allTariffFromCsv = getAllTariffFromCsv();
-        return allTariffFromCsv.stream().collect(
-                Collectors.groupingBy(x -> x.getTariffName().split("[ +]")[0]));
-    }
-
     public List<Tariff> getAllTariffFromCsv() throws IOException {
         List<Tariff> allTariff = new ArrayList<>();
         String RATE_BASE = "src\\main\\resources\\rateTariff.csv";

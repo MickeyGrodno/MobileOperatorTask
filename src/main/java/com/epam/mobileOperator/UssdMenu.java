@@ -51,7 +51,7 @@ public class UssdMenu {
         }
     }
     void showAllTariffByLine() throws IOException {
-        tariffPrinter.printGroupTariffByTariffLine(loader.sortTariffsByTariffLine());
+        tariffPrinter.printGroupTariffByTariffLine(loader.getAllTariffFromCsv());
     }
     void showAllTariffInfo() throws IOException {
         tariffPrinter.printAllTariffInfo(loader.getAllTariffFromCsv());

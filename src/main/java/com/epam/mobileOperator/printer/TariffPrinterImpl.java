@@ -2,9 +2,12 @@ package com.epam.mobileOperator.printer;
 
 import com.epam.mobileOperator.Tariff;
 import com.epam.mobileOperator.interfaces.TariffPrinter;
+
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class TariffPrinterImpl implements TariffPrinter {
 
@@ -26,7 +29,9 @@ public class TariffPrinterImpl implements TariffPrinter {
                 unLimFromTariffCheck(tariff.getFreeSms()), unLimFromTariffCheck(tariff.getFreeMinuteRoaming()), tariff.getPriceMinute(), tariff.getPriceMinuteToOtherNetwork(),
                 tariff.getPriceTraffic(), tariff.getPriceSms(), tariff.getPriceMinuteRoaming());
     }
-    public void printGroupTariffByTariffLine(Map<String, List<Tariff>> map) {
+    public void printGroupTariffByTariffLine(List<Tariff> tariffList) {
+        Map<String, List<Tariff>> map = tariffList.stream().collect(
+                Collectors.groupingBy(x -> x.getTariffName().split("[ +]")[0]));
         for (Map.Entry<String, List<Tariff>> current : map.entrySet()) {
             System.out.println("Тарифы линейки " + current.getKey());
             System.out.println("------------------------------------");

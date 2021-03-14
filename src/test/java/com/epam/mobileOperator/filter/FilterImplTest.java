@@ -1,8 +1,6 @@
 package com.epam.mobileOperator.filter;
 
 import com.epam.mobileOperator.Tariff;
-import com.epam.mobileOperator.filter.FilterImpl;
-import com.epam.mobileOperator.filter.FilterSettings;
 import com.epam.mobileOperator.interfaces.Filter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -31,7 +29,7 @@ public class FilterImplTest {
         when(tariff1.getTariffName()).thenReturn("Tariff-1");
         when(tariff1.getSubscriptionFee()).thenReturn(5.0);
         when(tariff1.getFreeMinute()).thenReturn(100);
-        when(tariff1.getFreeMinuteToOtherNetwork()).thenReturn(50);
+        when(tariff1.getFreeMinuteToOtherNetwork()).thenReturn(150);
         when(tariff1.getFreeTraffic()).thenReturn(500);
         when(tariff1.getFreeSms()).thenReturn(100);
         when(tariff1.getFreeMinuteRoaming()).thenReturn(100);
@@ -64,7 +62,8 @@ public class FilterImplTest {
 
     @Test
     public void getTariffWithUserFilter() {
-        List<Tariff> filteredList = filter.findTariffByFilterSettings(tariffList, mFilterSettings1);
+        List<Tariff> filteredList = filter.
+                findTariffByFilterSettings(tariffList, mFilterSettings1);
         Assertions.assertEquals("Tariff-1", filteredList.get(0).getTariffName());
     }
     @Test

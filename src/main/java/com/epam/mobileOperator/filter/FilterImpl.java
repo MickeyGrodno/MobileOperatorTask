@@ -1,8 +1,6 @@
 package com.epam.mobileOperator.filter;
-
 import com.epam.mobileOperator.Tariff;
 import com.epam.mobileOperator.interfaces.Filter;
-
 import java.util.ArrayList;
 import java.util.List;
 
