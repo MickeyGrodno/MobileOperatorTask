@@ -2,19 +2,24 @@ package com.epam.mobileOperator.loader;
 
 import com.epam.mobileOperator.Tariff;
 import com.epam.mobileOperator.interfaces.TariffLoader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TariffLoaderImpl implements TariffLoader {
+    private final static Logger LOGGER = LoggerFactory.getLogger(TariffLoaderImpl.class);
 
     private int unLimFromCsvCheck(String lineValue) {
         if (!lineValue.equalsIgnoreCase("unlim")) {
             return Integer.parseInt(lineValue);
-        } else return Integer.MAX_VALUE;
+        }
+        else return Integer.MAX_VALUE;
+
     }
 
     private Tariff tariffSetter(String[] values) {
@@ -34,16 +39,25 @@ public class TariffLoaderImpl implements TariffLoader {
         return tariff;
     }
 
-    public List<Tariff> getAllTariffFromCsv() throws IOException {
-        List<Tariff> allTariff = new ArrayList<>();
-        String RATE_BASE = "src\\main\\resources\\rateTariff.csv";
-        BufferedReader reader = new BufferedReader(new FileReader(RATE_BASE));
+    public List<Tariff> getAllTariffFromCsv() {
 
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] values = line.split("_");
-            allTariff.add(tariffSetter(values));
-        }
+            List<Tariff> allTariff = new ArrayList<>();
+            try {
+            String RATE_BASE = "src\\main\\resources\\rateTariff.csv";
+            BufferedReader reader = new BufferedReader(new FileReader(RATE_BASE));
+            LOGGER.info("База тарифов загружена");
+            String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] values = line.split("_");
+                    allTariff.add(tariffSetter(values));
+                }
+            } catch (IOException e) {
+                LOGGER.error("База данных абонентов не найдена");
+                e.printStackTrace();
+            } catch (ArrayIndexOutOfBoundsException e) {
+                LOGGER.error("Неверный формат данных в базе данных");
+                e.printStackTrace();
+            }
         return allTariff;
     }
 }

@@ -2,14 +2,17 @@ package com.epam.mobileOperator.printer;
 
 import com.epam.mobileOperator.Tariff;
 import com.epam.mobileOperator.interfaces.TariffPrinter;
+import com.epam.mobileOperator.loader.TariffLoaderImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 public class TariffPrinterImpl implements TariffPrinter {
+    private final static Logger LOGGER = LoggerFactory.getLogger(TariffLoaderImpl.class);
 
     private String unLimFromTariffCheck(Integer lineValue) {
         if (!lineValue.equals(Integer.MAX_VALUE)) {
@@ -30,8 +33,10 @@ public class TariffPrinterImpl implements TariffPrinter {
                 tariff.getPriceTraffic(), tariff.getPriceSms(), tariff.getPriceMinuteRoaming());
     }
     public void printGroupTariffByTariffLine(List<Tariff> tariffList) {
+        LOGGER.info("Группировка тарифов по тарифной линии");
         Map<String, List<Tariff>> map = tariffList.stream().collect(
                 Collectors.groupingBy(x -> x.getTariffName().split("[ +]")[0]));
+        LOGGER.info("Вызов печати");
         for (Map.Entry<String, List<Tariff>> current : map.entrySet()) {
             System.out.println("Тарифы линейки " + current.getKey());
             System.out.println("------------------------------------");
@@ -41,10 +46,12 @@ public class TariffPrinterImpl implements TariffPrinter {
     }
     public void printAllTariffSortedBySubscriptionFee(List<Tariff> tariffList) {
         headLinePrinter();
+        LOGGER.info("Вызов печати");
         tariffList.stream().sorted(Comparator.comparing(Tariff::getSubscriptionFee)).forEach(this::tariffInfoPrinter);
     }
     public void printAllTariffInfo(List<Tariff> tariffList) {
         headLinePrinter();
+        LOGGER.info("Вызов печати");
         tariffList.forEach(this::tariffInfoPrinter);
     }
 }

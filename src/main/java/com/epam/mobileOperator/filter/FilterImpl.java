@@ -1,13 +1,21 @@
 package com.epam.mobileOperator.filter;
+
 import com.epam.mobileOperator.Tariff;
 import com.epam.mobileOperator.interfaces.Filter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class FilterImpl implements Filter {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(FilterImpl.class);
+
     public List<Tariff> findTariffByFilterSettings(List<Tariff> tariffList, FilterSettings filterSettings) {
+        LOGGER.info("Вызов метода");
         List<Tariff> filteredTariffList = new ArrayList<>();
+
         for(Tariff tariff : tariffList) {
             if(tariff.getSubscriptionFee()>= filterSettings.getSubscriptionFee()[0]
                     && tariff.getSubscriptionFee()<= filterSettings.getSubscriptionFee()[1]) {
@@ -29,6 +37,7 @@ public class FilterImpl implements Filter {
                 }
             }
         }
+        LOGGER.info("Поизведена фильтрация данных согласно пользовательского фильтра");
         return filteredTariffList;
     }
 }
