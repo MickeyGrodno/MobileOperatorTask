@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UssdMenu {
@@ -53,9 +54,10 @@ public class UssdMenu {
                     LOGGER.info("Завершение работы");
                     break;
                 }
-            } catch (IOException e) {
-                LOGGER.error("Введен недопустимый формат данных");
+            } catch (InputMismatchException e) {
+                LOGGER.error("Введен недопустимый формат данных", e);
                 e.printStackTrace();
+                break;
             }
         }
     }

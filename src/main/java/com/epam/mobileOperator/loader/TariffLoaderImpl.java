@@ -52,11 +52,10 @@ public class TariffLoaderImpl implements TariffLoader {
                     allTariff.add(tariffSetter(values));
                 }
             } catch (IOException e) {
-                LOGGER.error("База данных абонентов не найдена");
+                LOGGER.error("База данных абонентов не найдена", e);
                 e.printStackTrace();
             } catch (ArrayIndexOutOfBoundsException e) {
-                LOGGER.error("Неверный формат данных в базе данных");
-                e.printStackTrace();
+                LOGGER.error("Неверный формат данных в базе данных", e);
             }
         return allTariff;
     }

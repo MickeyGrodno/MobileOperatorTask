@@ -24,10 +24,10 @@ public class NumberOfSubscribersLoaderImpl implements NumberOfSubscribersLoader 
             }
             LOGGER.info("Произведено вычисление количества абонентов");
         } catch (IOException e) {
-            LOGGER.error("База данных абонентов не найдена");
+            LOGGER.error("База данных абонентов не найдена", e);
             e.printStackTrace();
         } catch (NumberFormatException e) {
-            LOGGER.error("Неверный формат данных в базе данных");
+            LOGGER.error("Неверный формат данных в базе данных", e);
             e.printStackTrace();
         }
         return numberOfSubscribers;

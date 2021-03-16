@@ -32,7 +32,7 @@ public class FilterSettings {
             setFreeMinuteRoaming(Arrays.stream(scanner.nextLine().split("-")).mapToInt(Integer::parseInt).toArray());
         }
         catch (NumberFormatException e) {
-            LOGGER.error("Неверный формат вводимых данных");
+            LOGGER.error("Неверный формат вводимых данных",e);
             e.printStackTrace();
         }
     }
