@@ -12,7 +12,6 @@ import java.util.Map;
 public class TariffLoaderImplTest {
     TariffLoader tariffLoader;
     List<Tariff> list;
-    Map<String, List<Tariff>> map;
     @Test
     public void correctLoadAllTariffFromCsv() throws IOException {
         tariffLoader = new TariffLoaderImpl();

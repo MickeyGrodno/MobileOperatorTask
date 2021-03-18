@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="info" strict="true"
                name="XMLConfig" packages="com.epam.mobileOperator">
-    <Filter type="ThresholdFilter" level="DEBUG" />
+    <Filter type="OperatorLogs" level="DEBUG" />
     <Appenders>
         <Console name="LogToConsole">
             <Layout type="PatternLayout" pattern="%d{MM-dd-yyyy} %d{HH:mm:ss.SSS} %p [%t] %logger{5} - %msg%n" />
         </Console>
         <RollingFile name="LogToFile"
-                     fileName="logs/log4j2.log"
+                     fileName="logs/log4j2.txt"
                      filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
             <PatternLayout>
                 <Pattern>%d %p %c{1.} [%t] %m%n</Pattern>
@@ -21,7 +21,7 @@
     </Appenders>
 
     <Loggers>
-        <Root level="info">
+        <Root level="debug">
             <Appender-Ref ref="LogToConsole" level="info"/>
             <Appender-Ref ref="LogToFile" level="debug"/>
         </Root>
