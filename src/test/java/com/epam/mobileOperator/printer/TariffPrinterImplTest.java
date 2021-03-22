@@ -19,14 +19,13 @@ public class TariffPrinterImplTest {
     private static ArrayList allTariffList;
     private static PrintStream stream = mock(PrintStream.class);
 
-    @AfterEach
+    @BeforeEach
     public void cleanStream(){
         stream = mock(PrintStream.class);
         System.setOut(stream);
     }
     @BeforeAll
     public static void createTestData() {
-        System.setOut(stream);
         allTariffList = new ArrayList();
         Map<String, List<Tariff>> mapTariff = new HashMap<>();
         String tariffName = "The best";

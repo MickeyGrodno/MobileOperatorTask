@@ -36,7 +36,7 @@ public class FilterImpl implements Filter {
                 }
             }
         }
-        LOGGER.info("Поизведена фильтрация данных согласно пользовательского фильтра");
+        LOGGER.info("Произведена фильтрация данных согласно пользовательского фильтра");
         return filteredTariffList;
     }
 }
