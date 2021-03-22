@@ -1,7 +1,8 @@
 package com.epam.mobileOperator.printer;
 
 import com.epam.mobileOperator.interfaces.NumberOfSubscribersPrinter;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 
 import java.io.ByteArrayOutputStream;
@@ -15,17 +16,16 @@ public class NumberOfSubscribersPrinterTest {
     private static final ByteArrayOutputStream output = new ByteArrayOutputStream();
 
     @Test
-    public void testString() throws IOException {
+    public void numberOfSubscribersCorrectPrinterTest() throws IOException {
         PrintStream stream = mock(PrintStream.class);
         System.setOut(stream);
         NumberOfSubscribersPrinter numberOfSubscribersPrinter = new NumberOfSubscribersPrinterImpl();
         numberOfSubscribersPrinter.printNumberOfSubscribers();
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         verify(stream).println(captor.capture());
-        String[] lineArr = captor.getValue().split("\\n");
-        String actualLine = lineArr[lineArr.length-1];
+        String actualLine = captor.getValue();
         int numberOfSubscribersValue = Integer.parseInt(actualLine.replaceAll("[^0-9]", ""));
-        Assertions.assertTrue(numberOfSubscribersValue>0);
+        Assertions.assertTrue(numberOfSubscribersValue >=0);
 
     }
 }

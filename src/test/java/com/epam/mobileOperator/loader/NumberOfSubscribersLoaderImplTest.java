@@ -1,7 +1,6 @@
 package com.epam.mobileOperator.loader;
 
 import com.epam.mobileOperator.interfaces.NumberOfSubscribersLoader;
-import com.epam.mobileOperator.loader.NumberOfSubscribersLoaderImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 

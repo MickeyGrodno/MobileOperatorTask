@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="info" strict="true"
                name="XMLConfig" packages="com.epam.mobileOperator">
-    <Filter type="OperatorLogs" level="DEBUG" />
+    <Filter type="OperatorLogs" level="info" />
     <Appenders>
         <Console name="LogToConsole">
             <Layout type="PatternLayout" pattern="%d{MM-dd-yyyy} %d{HH:mm:ss.SSS} %p [%t] %logger{5} - %msg%n" />
@@ -21,9 +21,9 @@
     </Appenders>
 
     <Loggers>
-        <Root level="debug">
-            <Appender-Ref ref="LogToConsole" level="info"/>
-            <Appender-Ref ref="LogToFile" level="debug"/>
+        <Root level="info">
+            <Appender-Ref ref="LogToConsole" level="error"/>
+            <Appender-Ref ref="LogToFile" level="info"/>
         </Root>
     </Loggers>
 

@@ -22,15 +22,15 @@ public class TariffPrinterImpl implements TariffPrinter {
     }
     private void headLinePrinter() {
         System.out.println("Название тарифа | Абон. плата | Мин. внутри сети | Мин. в др. сети | Беспл. МБ | Беспл. СМС | " +
-                "Мин. роум. | Цена 1 мин. | Цена 1 мин др. сети | Цена 1 Мб | Цена 1 СМС | Цена 1 мин роум. |");
+                "Мин. роум. | Цена 1 мин. | Цена 1 мин др. сети | Цена 1 Мб | Цена 1 СМС | Цена 1 мин роум. |\r\n");
     }
     private void tariffInfoPrinter(Tariff tariff) {
-        System.out.printf("|   %s    |    %s    |    %s    |    %s    |    %s    |    %s    | " +
+        System.out.println(String.format("|   %s    |    %s    |    %s    |    %s    |    %s    |    %s    | " +
                         "   %s    |    %s    |    %s    |    %s    |     %s    |    %s    |%n", tariff.getTariffName(),
                 tariff.getSubscriptionFee(), unLimFromTariffCheck(tariff.getFreeMinute()),
                 unLimFromTariffCheck(tariff.getFreeMinuteToOtherNetwork()), unLimFromTariffCheck(tariff.getFreeTraffic()),
                 unLimFromTariffCheck(tariff.getFreeSms()), unLimFromTariffCheck(tariff.getFreeMinuteRoaming()), tariff.getPriceMinute(), tariff.getPriceMinuteToOtherNetwork(),
-                tariff.getPriceTraffic(), tariff.getPriceSms(), tariff.getPriceMinuteRoaming());
+                tariff.getPriceTraffic(), tariff.getPriceSms(), tariff.getPriceMinuteRoaming()));
     }
     public void printGroupTariffByTariffLine(List<Tariff> tariffList) {
         LOGGER.info("Группировка тарифов по тарифной линии");
@@ -45,13 +45,13 @@ public class TariffPrinterImpl implements TariffPrinter {
         }
     }
     public void printAllTariffSortedBySubscriptionFee(List<Tariff> tariffList) {
-        headLinePrinter();
         LOGGER.info("Вызов печати");
+        headLinePrinter();
         tariffList.stream().sorted(Comparator.comparing(Tariff::getSubscriptionFee)).forEach(this::tariffInfoPrinter);
     }
     public void printAllTariffInfo(List<Tariff> tariffList) {
-        headLinePrinter();
         LOGGER.info("Вызов печати");
+        headLinePrinter();
         tariffList.forEach(this::tariffInfoPrinter);
     }
 }
