@@ -8,9 +8,8 @@ import java.io.IOException;
 
 public class NumberOfSubscribersLoaderImplTest {
     @Test
-    public void test() throws IOException {
+    public void numberOfSubscribersLoaderTest() throws IOException {
         NumberOfSubscribersLoader numberOfSubscribersLoader = new NumberOfSubscribersLoaderImpl();
-        int correctValue = 172938833;
-        Assertions.assertEquals(correctValue, numberOfSubscribersLoader.getNumberOfSubscribers());
+        Assertions.assertTrue(numberOfSubscribersLoader.getNumberOfSubscribers()>0);
     }
 }

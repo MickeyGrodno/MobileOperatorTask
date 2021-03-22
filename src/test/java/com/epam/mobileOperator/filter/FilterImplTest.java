@@ -9,7 +9,8 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class FilterImplTest {
 
@@ -24,7 +25,6 @@ public class FilterImplTest {
         mFilterSettings2 = mock(FilterSettings.class);
         Tariff tariff1 = mock(Tariff.class);
         Tariff tariff2 = mock(Tariff.class);
-
 
         when(tariff1.getTariffName()).thenReturn("Tariff-1");
         when(tariff1.getSubscriptionFee()).thenReturn(5.0);
